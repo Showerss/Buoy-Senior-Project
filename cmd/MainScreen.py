@@ -70,9 +70,70 @@ class BuoyUI(tk.Tk):
         settings_window.title("Settings")
         settings_window.geometry("400x300")
         
-        # Add settings UI components here
-        ttk.Label(settings_window, text="Settings Window").pack(pady=20)
+        # Create main frame for better organization
+        main_frame = ttk.Frame(settings_window)
+        main_frame.pack(padx=20, pady=20, fill="both", expand=True)
         
+        # Add depth slider
+        ttk.Label(main_frame, text="Depth (meters)").pack(anchor="w", pady=(0, 5))
+        self.depth_slider = ttk.Scale(
+            main_frame,
+            from_=0,
+            to=100,
+            orient="horizontal",
+            length=200
+        )
+        self.depth_slider.pack(fill="x", pady=(0, 15))
+        
+        # Add sensor status indicators
+        status_frame = ttk.LabelFrame(main_frame, text="Sensor Status")
+        status_frame.pack(fill="x", pady=(0, 15))
+        
+        # Create sensor status labels with color indicators
+        self.sensor_labels = {}
+        sensor_types = ["Temperature", "pH", "Turbidity", "Dissolved Oxygen"]
+        
+        for sensor in sensor_types:
+            frame = ttk.Frame(status_frame)
+            frame.pack(fill="x", pady=2)
+            
+            # Color indicator
+            indicator = ttk.Label(frame, text="•", font=("TkDefaultFont", 12))
+            indicator.pack(side="left", padx=(0, 5))
+            
+            # Sensor name
+            ttk.Label(frame, text=sensor).pack(side="left")
+            
+            # Store reference to indicator for later updates
+            self.sensor_labels[sensor] = indicator
+        
+        # Add button to update sensor status
+        ttk.Button(
+            main_frame,
+            text="Refresh Status",
+            command=self._update_sensor_status
+        ).pack(pady=(0, 10))
+        
+    def _update_sensor_status(self):
+        """Update the sensor status indicators with color coding"""
+        # Simulated sensor status data (replace with actual sensor readings)
+        sensor_status = {
+            "Temperature": True,  # Green
+            "pH": False,         # Red
+            "Turbidity": True,   # Green
+            "Dissolved Oxygen": True  # Green
+        }
+        
+        # Update each sensor indicator
+        for sensor, status in sensor_status.items():
+            if sensor in self.sensor_labels:
+                if status:
+                    # Green for good status
+                    self.sensor_labels[sensor].configure(foreground="green")
+                else:
+                    # Red for bad status
+                    self.sensor_labels[sensor].configure(foreground="red")
+
     def _on_data(self):
         """Handle Data button click"""
         # Create data viewer window
