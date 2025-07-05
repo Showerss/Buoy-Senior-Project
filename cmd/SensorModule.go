@@ -12,3 +12,8 @@ func (sm *SensorModule) measureTemperature() float64 {
 	// Implement temperature measurement logic
 	return 0.0
 }
+
+func (sm *SensorModule) measurepH() float64 {
+	// Implement pH measurement logic
+	return 0.0
+}
