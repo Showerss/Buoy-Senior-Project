@@ -17,3 +17,13 @@ func (sm *SensorModule) measurepH() float64 {
 	// Implement pH measurement logic
 	return 0.0
 }
+
+func (sm *SensorModule) measureTurbidity() float64 {
+	// Implement turbidity measurement logic
+	return 0.0
+}
+
+func (sm *SensorModule) measureDissolvedOxygen() float64 {
+	// Implement dissolved oxygen measurement logic
+	return 0.0
+}
