@@ -1,3 +1,5 @@
+package cmd
+
 type SensorModule struct {
 	// Public variables
 	Temperature float64
