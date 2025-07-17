@@ -115,51 +115,55 @@ A floating, self-powered station that periodically measures key water-quality pa
 | Comms failure (no gateway)    | Data gaps       | NB‑IoT fallback               |
 
 ## 15. C Module Interactions (UML)
-
-```mermaid
 classDiagram
     class sensor_module_h {
-        +float measure_temperature(void)
-        +float measure_ph(void)
-        +float measure_turbidity(void)
-        +float measure_do(void)
-        +float measure_conductivity(void)
+        +latestTemperature : float {extern}
+        +latestPH : float {extern}
+        +latestTurbidity : float {extern}
+        +latestDissolvedO2 : float {extern}
+        +latestConductivity : float {extern}
+        +measure_temperature() : float
+        +measure_ph() : float
+        +measure_turbidity() : float
+        +measure_do() : float
+        +measure_conductivity() : float
     }
+
     class power_manager_h {
-        +void pm_sleep(void)
-        +void pm_wake(void)
-        +void pm_manage_charging(void)
-        +float pm_get_battery_level(void)
+        +batteryLevel : float {extern}
+        +solarVoltage : float {extern}
+        +isCharging : bool {extern}
+        +powerState : PowerState {extern}
+        +pm_sleep() : void
+        +pm_wake() : void
+        +pm_manage_charging() : void
+        +pm_get_battery_level() : float
     }
+
     class comm_module_h {
-        +bool comm_send_data(const DataPacket *packet)
-        +DataPacket comm_encrypt(const DataPacket *packet)
-        +bool comm_fallback_send(const DataPacket *packet)
+        +lastCommStatus : bool {extern}
+        -encryptionKey : char* {static}
+        -lastAttemptTime : uint32_t {static}
+        +comm_send_data(packet : DataPacket*) : bool
+        +comm_encrypt(packet : DataPacket*) : DataPacket
+        +comm_fallback_send(packet : DataPacket*) : bool
     }
+
     class firmware_main_c {
-        +int main(void)
-        +void run_cycle(void)
-        +void calibrate_sensors(void)
-        +void power_state_machine(void)
-        +void enqueue_data(void)
-    }
-    class gateway_server_js {
-        +void receive_data(DataPacket packet)
-        +void store_data(DataPacket packet)
-        +void forward_to_db(void)
-    }
-    class dashboard_py {
-        +void visualize_data(TimeSeries data)
-        +void check_alerts(const DataPacket *packet)
-        +void fetch_latest(void)
+        -cycleIntervalSec : uint32_t {static}
+        -dataBuffer : DataPacket[BUFFER_SIZE] {static}
+        +main() : int
+        +run_cycle() : void
+        +calibrate_sensors() : void
+        +power_state_machine() : void
+        +enqueue_data() : void
     }
 
     sensor_module_h --> firmware_main_c : calls
     power_manager_h --> firmware_main_c : calls
     comm_module_h --> firmware_main_c : uses
-    firmware_main_c --> gateway_server_js : LoRaWAN uplink
-    gateway_server_js --> dashboard_py : API feed
-```
+    firmware_main_c --> gateway_server : "LoRaWAN uplink"
+    gateway_server --> dashboard_py : "API feed"
 
 *End of Design Document.*
 
