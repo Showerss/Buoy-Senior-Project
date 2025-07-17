@@ -1,93 +1,84 @@
-Solar-Powered IoT Water-Quality Buoy
+# Solar-Powered IoT Water-Quality Buoy
 
+&#x20;&#x20;
 
-Welcome to the Solar-Powered IoT Water-Quality Buoy project! This repository contains embedded C firmware for STM32, a Python-based GUI dashboard, and configuration/scripts for deploying a self-sustaining buoy that monitors and reports water quality in real time.
+> A solar-powered, self-sustaining buoy that continuously measures water quality (pH, turbidity, dissolved oxygen, conductivity, temperature) and transmits data via LoRaWAN to your dashboard.
 
-🔍 Overview
-A floating station that:
+---
 
-Monitors pH, turbidity, dissolved oxygen (DO), conductivity, and temperature
+## 🚀 Quick Start
 
-Runs on a solar-powered LiFePO₄ battery for multi-month deployments
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/yourusername/water-quality-buoy.git
+   cd water-quality-buoy
+   ```
+2. **Firmware Setup (STM32)**
+   - Open `/firmware/` in STM32CubeIDE or install `arm-none-eabi` toolchain.
+   - Configure `config.h` (sampling interval, calibration).
+   - Build & flash via ST‑Link.
+3. **Backend Setup (Go)**
+   ```bash
+   cd backend
+   go mod tidy
+   go build -o buoy-server
+   ./buoy-server --config config.yaml
+   ```
+4. **GUI Dashboard (Python)**
+   ```bash
+   cd gui
+   pip install -r requirements.txt
+   python main.py
+   ```
+5. **Connect LoRa Gateway**
+   - Configure LoRaWAN keys in `backend/config.yaml`
+   - Ensure MQTT broker endpoint is reachable.
 
-Communicates sensor data via LoRaWAN (with NB-IoT fallback)
+---
 
-Stores data in a time-series database
+## 📂 Repository Structure
 
-Provides a desktop GUI (Tkinter-based) for visualization and alerts
-
-🚀 Features
-Embedded Firmware in C for STM32L4: sensor polling, calibration, power cycling, LoRa uplinks
-
-Python GUI Dashboard: real-time data plots (matplotlib), sensor health indicators, alert system with offline caching (SQLite)
-
-Modular Architecture: clear separation of SensorModule, PowerManager, CommModule, and main loop
-
-Extensive Documentation: design diagrams, architecture breakdowns, and UML specs
-
-📂 Repository Structure
-bash
-Copy
-Edit
-/firmware/          # STM32 C code and peripheral drivers
-/gui/               # Python GUI (Tkinter) application
-/docs/              # Design documents, UML diagrams, schematics
-/tests/             # Unit & integration tests for C modules
-/scripts/           # Build and deployment scripts for firmware
-README.md           # This welcome page
+```
+/firmware/          # STM32 C firmware (Cube HAL, CMSIS)
+/backend/           # Go microservice (Gorilla/Mux, MQTT client)
+/gui/               # Python GUI (PyQt5, matplotlib)
+/docs/              # Design docs, UML diagrams, BOM
+/tests/             # Unit & integration tests
+/scripts/           # Build & deployment scripts
+README.md           # This landing page
 LICENSE             # MIT License
-🛠️ Getting Started
-Clone the repo
+CONTRIBUTING.md     # Contribution guidelines
+```
 
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/water-quality-buoy.git
-cd water-quality-buoy
-Set up your environment
+---
 
-Firmware: install STM32CubeIDE or the arm-none-eabi toolchain
+## 🌟 Key Features
 
-GUI: Python 3.8+ with Tkinter, pip install -r gui/requirements.txt
+- **Continuous Monitoring:** Multi-parameter sensing at configurable intervals.
+- **Solar-Powered:** 5 W panel + LiFePO₄ battery for months of autonomy.
+- **LoRaWAN & NB‑IoT Fallback:** Reliable uplink in remote areas.
+- **Modular Design:** Firmware in C, backend in Go, GUI in Python.
+- **Outreach-Ready:** Integrate with community dashboards and school projects.
 
-Build & Deploy
+---
 
-Firmware:
+## 📖 Documentation & Diagrams
 
-Open the STM32Cube project in /firmware/
+- **Design Document:** `/docs/Design_Document.md`
+- **UML Class Diagrams:** `/docs/UML_Diagrams.md`
+- **Hardware Schematics & BOM:** `/docs/BOM_and_Schematics.pdf`
 
-Build and flash via ST-Link to STM32L4 MCU
+---
 
-GUI:
+## 🤝 Contributing
 
-bash
-Copy
-Edit
-cd gui
-python main.py
-Connect LoRa Gateway & Database
-Configure LoRa keys in firmware/config.h and ensure your database backend (e.g., InfluxDB) is reachable for downstream ingestion.
+We welcome contributions! Please review [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on setting up your environment, coding standards, and pull-request workflow.
 
-🔧 Configuration
-Firmware: firmware/config.h – set read intervals, thresholds, and sensor calibration constants
+---
 
-GUI: gui/settings.ini – define API endpoint, alert thresholds, and local cache preferences
+## 📄 License
 
-🖼️ Screenshots
+This project is licensed under the MIT License © 2025.
 
+*Happy Monitoring!*
 
-🤝 Contributing
-We welcome pull requests! To contribute:
-
-Fork the repo
-
-Create a new branch (git checkout -b feature/x)
-
-Commit changes with clear messages
-
-Submit a pull request targeting the main branch
-
-More info in CONTRIBUTING.md
-
-📄 License
-This project is licensed under the MIT License.
