@@ -1,4 +1,5 @@
-#include "PowerManager.h"
+#include "../include/PowerManager.h"
+#include <stdlib.h>
 
 void pm_sleep(PowerManager *pm) {
     pm->battery_state = BATTERY_STATE_ASLEEP;

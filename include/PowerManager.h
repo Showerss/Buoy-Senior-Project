@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-typedef struct PowerManager PowerManager;
-
 //enum for battery states
 typedef enum {
     BATTERY_STATE_ON,
@@ -12,6 +10,12 @@ typedef enum {
     BATTERY_STATE_CHARGING,
     BATTERY_STATE_UNKNOWN
 } BatteryState;
+
+typedef struct PowerManager {
+    BatteryState battery_state;
+    float battery_level;
+    float solar_voltage;
+} PowerManager;
 
 
 // non getter functions 

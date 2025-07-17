@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from Sensors.SensorManager import SensorManager
 
 class BuoyUI(tk.Tk):
     def __init__(self):
@@ -8,6 +9,9 @@ class BuoyUI(tk.Tk):
         self.title("Water Quality Buoy Control")
         self.geometry("800x600")
         self.resizable(True, True)
+        
+        # Initialize sensor manager
+        self.sensor_manager = SensorManager()
         
         # Initialize UI components
         self._setup_ui()
@@ -50,6 +54,18 @@ class BuoyUI(tk.Tk):
         # Data button
         self.data_button = ttk.Button(button_frame, text="Data", command=self._on_data)
         self.data_button.pack(side=tk.LEFT, padx=5)
+
+        # About button
+        self.about_button = ttk.Button(button_frame, text="About", command=self._on_about)
+        self.about_button.pack(side=tk.LEFT, padx=5)
+        
+    def _on_about(self):
+        """Handle About button click"""
+        messagebox.showinfo("About", """Water Quality Buoy Control
+                            Version 1.0
+                            Created by Phillip Banky and Jennaya Horne
+
+                            This is a test version of the water quality buoy control system.""")
         
     def _on_run(self):
         """Handle Run button click"""
@@ -89,20 +105,32 @@ class BuoyUI(tk.Tk):
         status_frame = ttk.LabelFrame(main_frame, text="Sensor Status")
         status_frame.pack(fill="x", pady=(0, 15))
         
-        # Create sensor status labels with color indicators
+        # Create sensor status labels with larger, more prominent indicators
         self.sensor_labels = {}
-        sensor_types = ["Temperature", "pH", "Turbidity", "Dissolved Oxygen"]
+        sensor_types = self.sensor_manager.get_sensor_types()
         
         for sensor in sensor_types:
             frame = ttk.Frame(status_frame)
-            frame.pack(fill="x", pady=2)
+            frame.pack(fill="x", pady=5)
             
-            # Color indicator
-            indicator = ttk.Label(frame, text="•", font=("TkDefaultFont", 12))
-            indicator.pack(side="left", padx=(0, 5))
+            # Create a larger indicator box
+            indicator_frame = ttk.Frame(frame, relief="raised", borderwidth=2)
+            indicator_frame.pack(side="left", padx=(0, 10))
             
-            # Sensor name
-            ttk.Label(frame, text=sensor).pack(side="left")
+            # Color indicator (larger and more prominent)
+            indicator = tk.Label(
+                indicator_frame, 
+                text="●", 
+                font=("TkDefaultFont", 10, "bold"),
+                width=2,
+                relief="sunken",
+                borderwidth=1
+            )
+            indicator.pack(padx=5, pady=5)
+            
+            # Sensor name with larger font
+            name_label = ttk.Label(frame, text=sensor, font=("TkDefaultFont", 11, "bold"))
+            name_label.pack(side="left")
             
             # Store reference to indicator for later updates
             self.sensor_labels[sensor] = indicator
@@ -115,24 +143,41 @@ class BuoyUI(tk.Tk):
         ).pack(pady=(0, 10))
         
     def _update_sensor_status(self):
-        """Update the sensor status indicators with color coding"""
-        # Simulated sensor status data (replace with actual sensor readings)
-        sensor_status = {
-            "Temperature": True,  # Green
-            "pH": False,         # Red
-            "Turbidity": True,   # Green
-            "Dissolved Oxygen": True  # Green
-        }
+        """Update the sensor status indicators with comprehensive status checking"""
+        # Get sensor status from the sensor manager
+        sensor_status = self.sensor_manager.check_sensor_functionality()
         
-        # Update each sensor indicator
+        # Update each sensor indicator with enhanced colors
         for sensor, status in sensor_status.items():
             if sensor in self.sensor_labels:
-                if status:
-                    # Green for good status
-                    self.sensor_labels[sensor].configure(foreground="green")
-                else:
-                    # Red for bad status
-                    self.sensor_labels[sensor].configure(foreground="red")
+                if status == "functional":
+                    # Bright green for functional sensors
+                    self.sensor_labels[sensor].configure(
+                        foreground="darkgreen",
+                        background="lightgreen",
+                        relief="raised"
+                    )
+                elif status == "disabled":
+                    # Gray for disabled sensors
+                    self.sensor_labels[sensor].configure(
+                        foreground="gray",
+                        background="lightgray",
+                        relief="flat"
+                    )
+                elif status == "error":
+                    # Bright red for error sensors
+                    self.sensor_labels[sensor].configure(
+                        foreground="darkred", 
+                        background="lightcoral",
+                        relief="sunken"
+                    )
+                elif status == "needs_calibration":
+                    # Yellow for sensors needing calibration
+                    self.sensor_labels[sensor].configure(
+                        foreground="darkorange",
+                        background="lightyellow",
+                        relief="sunken"
+                    )
 
     def _on_data(self):
         """Handle Data button click"""
