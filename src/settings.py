@@ -1,6 +1,8 @@
+
 class Config:
+    APP_TITLE = "Water Quality Buoy Control"
     WINDOW_SIZE = "800x600"
-    SENSOR_CHECK_INTERVAL = 1000
+    SENSORS = ["Temperature", "pH", "Turbidity", "Dissolved Oxygen"]
     LOG_LEVEL = "INFO"
 
 # Missing: Data storage and retrieval

@@ -11,6 +11,8 @@ typedef enum {
     BATTERY_STATE_UNKNOWN
 } BatteryState;
 
+
+// variables
 typedef struct PowerManager {
     BatteryState battery_state;
     float battery_level;

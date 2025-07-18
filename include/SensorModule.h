@@ -1,22 +1,18 @@
-//SensorModule.h
-
 #ifndef SENSOR_MODULE_H
 #define SENSOR_MODULE_H
 
+#include <stdint.h>
 
-#include <stdint.h> //for uint32_t
-
-//Struct for sensor data
-typedef struct {
-	float Temperature;
-	float pH;
-	float Turbidity;
-	float DissolvedOxygen;
-	float Conductivity;
-	uint32_t Timestamp;
+// variables
+typedef struct SensorModule {
+    float temperature;
+    float ph;
+    float turbidity;
+    float dissolved_oxygen;
+    float conductivity;
 } SensorModule;
 
-//function prototypes
+// Function declarations
 void measureTemperature(SensorModule *sm);
 void measurepH(SensorModule *sm);
 void measureTurbidity(SensorModule *sm);
