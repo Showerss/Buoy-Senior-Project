@@ -1,0 +1,3 @@
+## Requirements
+
+pip install tkinter  # Usually comes with Python

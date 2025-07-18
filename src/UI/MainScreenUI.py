@@ -101,6 +101,9 @@ class MainScreenUI(tk.Tk):
             length=200
         )
         self.depth_slider.pack(fill="x", pady=(0, 15))
+
+        # Add a button to save the depth
+        ttk.Button(main_frame, text="Save Depth", command=self._save_depth).pack(pady=(0, 15))
         
         # Add sensor status indicators
         status_frame = ttk.LabelFrame(main_frame, text="Sensor Status")
@@ -203,6 +206,12 @@ class MainScreenUI(tk.Tk):
             
             # Schedule next update
             self.after(1000, self._update_canvas)
+
+    def _save_depth(self):
+        """Save the current depth to a file"""
+        depth = self.depth_slider.get()
+        with open("depth.txt", "w") as f:
+            f.write(str(depth))
 
 if __name__ == '__main__':
     app = MainScreenUI()

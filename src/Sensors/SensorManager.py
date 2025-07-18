@@ -10,6 +10,9 @@ class SensorManager:
         """
         Comprehensive sensor functionality check
         Returns a dictionary with sensor status: 'functional', 'disabled', 'error', or 'needs_calibration'
+
+        Returns: 
+            sensor_status: Dictionary with sensor status: 'functional', 'disabled', 'error', or 'needs_calibration'
         """
         sensor_status = {}
         
@@ -32,7 +35,15 @@ class SensorManager:
         return sensor_status
     
     def _check_temperature_sensor(self):
-        """Check temperature sensor functionality"""
+        """
+        Check temperature sensor functionality
+        
+        Returns: 
+            "functional" if the sensor is working correctly
+            "disabled" if the sensor is not connected
+            "error" if the sensor is not responding
+            "needs_calibration" if the sensor needs to be calibrated
+        """
         try:
             # Simulate reading temperature sensor
             # In real implementation, you would communicate with the actual sensor
