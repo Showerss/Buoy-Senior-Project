@@ -6,7 +6,7 @@
 
     please do this to reduce coupling and make the files easy to maintain, read and replace
 
-## 2. Interface segregration
+## 2. Interface segregation
     do "Pure" interfaces in headers
     never do #include if possible to keep with abstract interface styling, dont do many concerte .c files 
 
