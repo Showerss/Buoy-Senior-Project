@@ -13,9 +13,6 @@ Whether you’re a researcher, educator, or community organizer, this open-sourc
 ---
 
 ## 🚀 Quick Start
----
-
-## 🚀 Quick Start
 
 1. **Clone the repo**
    ```bash
