@@ -1,7 +1,17 @@
 #ifndef SENSOR_MODULE_H
 #define SENSOR_MODULE_H
 
-#include <stdint.h>
+/**
+* @file SensorModule.h
+* @brief Pure interface for sensor operations
+* 
+* This module handles all sensor-related operations including:
+* - Temperature measurement
+* - pH measurement
+* - Turbidity measurement
+* - Dissolved oxygen measurement
+* - Conductivity measurement
+*/
 
 // variables
 typedef struct SensorModule {

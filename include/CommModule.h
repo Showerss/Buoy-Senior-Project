@@ -12,3 +12,6 @@ typedef struct CommModule {
     int8_t is_idle;
     int8_t is_ready;
 } CommModule;
+
+
+#endif
