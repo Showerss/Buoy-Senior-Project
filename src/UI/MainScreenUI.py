@@ -1,9 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 from Sensors.SensorManager import SensorManager
 
-class BuoyUI(tk.Tk):
+class MainScreenUI(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Water Quality Buoy Control")
@@ -13,12 +12,13 @@ class BuoyUI(tk.Tk):
         # Initialize sensor manager
         self.sensor_manager = SensorManager()
         
-        # Initialize UI components
-        self._setup_ui()
-        
         # Initialize state variables
         self.is_running = False
         
+        # Initialize UI components
+        self._setup_ui()
+        
+
     def _setup_ui(self):
         # Create main frame
         main_frame = ttk.Frame(self, padding="10")
@@ -78,7 +78,8 @@ class BuoyUI(tk.Tk):
             self.run_button.configure(text="Run")
             self.is_running = False
             # Add your stop logic here
-            
+
+
     def _on_settings(self):
         """Handle Settings button click"""
         # Create settings dialog
@@ -178,7 +179,7 @@ class BuoyUI(tk.Tk):
                         background="lightyellow",
                         relief="sunken"
                     )
-
+    
     def _on_data(self):
         """Handle Data button click"""
         # Create data viewer window
@@ -204,5 +205,5 @@ class BuoyUI(tk.Tk):
             self.after(1000, self._update_canvas)
 
 if __name__ == '__main__':
-    app = BuoyUI()
+    app = MainScreenUI()
     app.mainloop()

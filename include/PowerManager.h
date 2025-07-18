@@ -22,10 +22,10 @@ typedef struct PowerManager {
 void pm_sleep(PowerManager *pm);
 void pm_wake(PowerManager *pm);
 void pm_manage_charging(PowerManager *pm);
+
 // getters and setters 
 BatteryState pm_get_battery_state(PowerManager *pm);
 float pm_get_battery_level(PowerManager *pm);
-float pm_get_solar_voltage(PowerManager *pm);
 
 //constructors 
 PowerManager *pm_create(void);

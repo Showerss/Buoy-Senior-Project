@@ -6,7 +6,7 @@ This module initializes the application and starts the main user interface.
 import sys
 import os
 import logging
-from MainScreen import BuoyUI
+from UI.MainScreenUI import MainScreenUI
 
 def setup_logging():
     """Configure application logging."""
@@ -30,10 +30,10 @@ def main():
         # Set up logging
         setup_logging()
         logger = logging.getLogger(__name__)
-        logger.info("Starting Buoy Water Quality Monitoring System")
+        logger.info("Starting Water Quality Buoy Control System")
         
         # Initialize and start the main application
-        app = BuoyUI()
+        app = MainScreenUI()
         app.mainloop()
         
         logger.info("Application shutdown complete")
