@@ -1,9 +1,18 @@
 # Solar-Powered IoT Water-Quality Buoy
 
-&#x20;&#x20;
-
 > A solar-powered, self-sustaining buoy that continuously measures water quality (pH, turbidity, dissolved oxygen, conductivity, temperature) and transmits data via LoRaWAN to your dashboard.
 
+---
+
+## 🌊 Introduction
+
+Water quality monitoring is vital for environmental conservation, research, and public health. Traditional monitoring methods are often labor-intensive and expensive, especially in remote or hard-to-reach locations. This project introduces a **solar-powered IoT buoy** designed to autonomously collect and transmit real-time water quality data. By leveraging renewable energy, robust sensors, and long-range communication (LoRaWAN), our buoy provides a scalable, low-maintenance solution for continuous aquatic monitoring.
+
+Whether you’re a researcher, educator, or community organizer, this open-source project can help you deploy affordable water-quality monitoring stations in lakes, rivers, and reservoirs.
+
+---
+
+## 🚀 Quick Start
 ---
 
 ## 🚀 Quick Start
