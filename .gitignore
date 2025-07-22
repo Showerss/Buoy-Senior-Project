@@ -46,6 +46,13 @@ wheels/
 *.swo
 *~
 .DS_Store
+*.o
+*.elf
+*.map
+.project
+.cproject
+__pycache__/
+*.pyc
 
 # Environment variables
 .env

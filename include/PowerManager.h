@@ -1,6 +1,9 @@
 #ifndef POWER_MANAGER_H
 #define POWER_MANAGER_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /**
  * @file PowerManager.h
  * @brief Pure interface for power management operations
@@ -24,23 +27,24 @@ typedef enum {
 
 
 // variables
-typedef struct PowerManager {
+typedef struct {
     BatteryState battery_state;
     float battery_level;
     float solar_voltage;
 } PowerManager;
 
-// non getter functions 
+// Actions:
 void pm_sleep(PowerManager *pm);
 void pm_wake(PowerManager *pm);
 void pm_manage_charging(PowerManager *pm);
 
-// getters and setters 
-BatteryState pm_get_battery_state(PowerManager *pm);
-float pm_get_battery_level(PowerManager *pm);
+// State-query
+BatteryState pm_get_battery_state(const PowerManager *pm);
+float pm_get_battery_level(const PowerManager *pm);
+float pm_get_solar_voltage(const PowerManager *pm);
 
-// constructor and destructor
+// Life-Cycle 
 PowerManager *pm_create(void);
 void pm_destroy(PowerManager *pm);
 
-#endif 
+#endif //POWER_MANAGER_H
