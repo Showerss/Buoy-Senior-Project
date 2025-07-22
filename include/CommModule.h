@@ -2,16 +2,23 @@
 #define COMM_MODULE_H
 
 #include <stdint.h>
+#include <stdbool.h>
+#include "DataPacket.h"
 
 typedef struct CommModule {
-    int8_t is_connected;
-    int8_t is_transmitting;
-    int8_t is_receiving;
-    int8_t is_error;
-    int8_t is_busy;
-    int8_t is_idle;
-    int8_t is_ready;
+    bool is_connected;
+    bool is_transmitting;
+    bool is_receiving;
+    bool is_error;
+    bool is_busy;
+    bool is_idle;
+    bool is_ready;
 } CommModule;
 
+DataPacket comm_encrypt(const DataPacket *raw);
 
-#endif
+bool comm_send_data(const DataPacket *packet);
+
+bool comm_fallback(const DataPacket *packet);
+
+#endif //COMM_MODULE_H
