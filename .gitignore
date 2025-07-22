@@ -52,6 +52,7 @@ wheels/
 .project
 .cproject
 __pycache__/
+*.pyc
 
 # Environment variables
 .env
